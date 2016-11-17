@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>Account</title>
+</head>
+<body>
+<h1>Account</h1>
+<table border="1">
+    <tr><th>Account ID</th><th>email</th><th>first_name</th><th>last_name</th></tr>
+    <% for(var i=0; result.length > i; i++ ) { %>
+    <tr>
+        <td><%= result[i].account_id%></td>
+        <td><a href="/account/?account_id=<%= result[i].account_id %>"><%= result[i].email %>"><%= result[i].first_name%></a></td>
+        <td><%= result[i].address_id %></td>
+    </tr>
+    <% } %>
+</table>
+</body>
+
+</html>
