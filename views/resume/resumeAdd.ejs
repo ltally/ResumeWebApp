@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Add New Resume</title>
+</head>
+<body>
+<h1>Add New Resume</h1>
+<form action="/resume/insert" method="get">
+    Resume Name: <input id="resume_name" name="resume_name" type="text" />
+    <br />
+    <br />
+    Account ID
+    <select id="account_id" name="account_id">
+        <% for(var i=0; account_id.length > i; i++ ) { %>
+        <option value="<%= account_id[i].account_id %>"><%= account_id[i].first_name + ' ' + account_id[i].last_name %></option>
+        <% } %>
+    </select>
+
+    <input type="submit" />
+
+</form>
+</body>
+
+</html>

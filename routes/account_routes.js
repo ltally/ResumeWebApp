@@ -33,6 +33,59 @@ router.get('/', function(req, res){
     }
 });
 
+// Return the add a new account form
+router.get('/add', function(req, res){
+    // passing all the query parameters (req.query) to the insert function instead of each individually
+    account_dal.getAll(function(err,result) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.render('account/accountAdd');
+        }
+    });
+});
+
+// insert an account record
+router.get('insert', function(req, res){
+    //simple validation
+    if(req.query.email == null) {
+        res.send('Email must be provided.');
+    }
+    else if(req.query.first_name == null){
+        res.send('A name must be selected');
+    }
+    else {
+        // passing all the query parameters (req.query) to the insert function instead of each individually
+        school_dal.insert(req.query, function(err,result) {
+            if (err) {
+                res.send(err);
+            }
+            else {
+                //poor practice, but we will handle it differently once we start using Ajax
+                res.redirect(302, '/account/all');
+            }
+        });
+    }
+});
+
+// Delete an account for the given account_id
+router.get ('/delete', function(req, res){
+    if(req.query.account_id == null) {
+        res.send('account_id is null');
+    }
+    else {
+        account_dal.delete(req.query.account_id, function(err,result){
+            if(err) {
+                res.send(err);
+            }
+            else {
+                //poor practice, but we will handle it differently once we start using Ajax
+                res.redirect(302, '/account/all');
+            }
+        });
+    }
+});
 module.exports = router;
 /**
  * Created by student on 11/9/16.
