@@ -30,7 +30,6 @@ exports.getById = function(company_id, callback) {
     console.log(query);
 
     connection.query(query, queryData, function(err, result) {
-
         callback(err, result);
     });
 };
@@ -39,7 +38,6 @@ exports.insert = function(params, callback) {
 
     // FIRST INSERT THE COMPANY
     var query = 'INSERT INTO company (company_name) VALUES (?)';
-
     var queryData = [params.company_name];
 
     connection.query(query, params.company_name, function(err, result) {
@@ -48,14 +46,13 @@ exports.insert = function(params, callback) {
         var company_id = result.insertId;
 
         // NOTE THAT THERE IS ONLY ONE QUESTION MARK IN VALUES ?
-        var query = 'INSERT INTO company_address (company_id, address_id) VALUES ?';
+        var query = 'INSERT INTO company_address (company_id, address_id) VALUES (?)';
 
         // TO BULK INSERT RECORDS WE CREATE A MULTIDIMENSIONAL ARRAY OF THE VALUES
         var companyAddressData = [];
         for(var i=0; i < params.address_id.length; i++) {
             companyAddressData.push([company_id, params.address_id[i]]);
         }
-
         // NOTE THE EXTRA [] AROUND companyAddressData
         connection.query(query, [companyAddressData], function(err, result){
             callback(err, result);
