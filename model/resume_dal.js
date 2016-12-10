@@ -42,10 +42,14 @@ exports.insert = function(params, callback) {
 
         // TO BULK INSERT RECORDS WE CREATE A MULTIDIMENSIONAL ARRAY OF THE VALUES
         var resumeSchoolData = [];
-        for (var i = 0; i < params.school_id.length; i++) {
-            resumeSchoolData.push([resume_id, params.school_id[i]]);
+        if(params.school_id instanceof Array) {
+            for (var i = 0; i < params.school_id.length; i++) {
+                resumeSchoolData.push([resume_id, params.school_id[i]]);
+            }
         }
-
+        else {
+            resumeSchoolData.push([resume_id, params.school_id]);
+        }
         // NOTE THE EXTRA [] AROUND resumeSchoolData
         connection.query(query, [resumeSchoolData], function (err, result) {
             callback(err, result);

@@ -79,7 +79,7 @@ router.get('/edit', function(req, res){
     }
     else {
         company_dal.edit(req.query.company_id, function(err, result){
-            //console.log(result);
+            console.log(result);
             res.render('company/companyUpdate', {company: result[0][0], address: result[1]});
         });
     }

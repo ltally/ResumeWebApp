@@ -9,7 +9,7 @@ var connection = mysql.createConnection(db.config);
 
 /*
  create or replace view company_view as
- select s.*, a.street, a.zipcode from company s
+ select s.*, a.street, a.zip_code from company s
  join address a on a.address_id = s.address_id;
  */
 
@@ -22,7 +22,7 @@ exports.getAll = function(callback) {
 };
 
 exports.getById = function(company_id, callback) {
-    var query = 'SELECT c.*, a.street, a.zipcode FROM company c ' +
+    var query = 'SELECT c.*, a.street, a.zip_code FROM company c ' +
         'LEFT JOIN company_address ca on ca.company_id = c.company_id ' +
         'LEFT JOIN address a on a.address_id = ca.address_id ' +
         'WHERE c.company_id = ?';
@@ -38,6 +38,7 @@ exports.insert = function(params, callback) {
 
     // FIRST INSERT THE COMPANY
     var query = 'INSERT INTO company (company_name) VALUES (?)';
+
     var queryData = [params.company_name];
 
     connection.query(query, params.company_name, function(err, result) {
@@ -50,8 +51,13 @@ exports.insert = function(params, callback) {
 
         // TO BULK INSERT RECORDS WE CREATE A MULTIDIMENSIONAL ARRAY OF THE VALUES
         var companyAddressData = [];
-        for(var i=0; i < params.address_id.length; i++) {
-            companyAddressData.push([company_id, params.address_id[i]]);
+        if(params.address_id instanceof Array) {
+            for (var i = 0; i < params.address_id.length; i++) {
+                companyAddressData.push([company_id, params.address_id[i]]);
+            }
+        }
+        else {
+            companyAddressData.push([company_id, params.address_id]);
         }
         // NOTE THE EXTRA [] AROUND companyAddressData
         connection.query(query, [companyAddressData], function(err, result){
@@ -130,7 +136,7 @@ exports.update = function(params, callback) {
  SELECT * FROM company WHERE company_id = _company_id;
  SELECT a.*, s.company_id FROM address a
  LEFT JOIN company_address s on s.address_id = a.address_id AND company_id = _company_id
- ORDER BY a.street, a.zipcode;
+ ORDER BY a.street, a.zip_code;
  END //
  DELIMITER ;
  # Call the Stored Procedure
