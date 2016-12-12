@@ -1,10 +1,9 @@
-<%- include("../includes/header.ejs", {title:"Account - " + result[0].account_id}); %>
+<%- include("../includes/header.ejs", {title:"Account - " + result[0].first_name}); %>
 <h1>Accounts</h1>
 <ul>
     <li>Account ID: <%= result[0].account_id %></li>
     <li>Email: <%= result[0].email %></li>
-    <li>First Name: <%= result[0].first_name %></li>
-    <li>Last Name: <%= result[0].last_name %></li>
+    <li>Account Name: <%= result[0].first_name %> <%= result[0].last_name %></li>
 </ul>
 </body>
 

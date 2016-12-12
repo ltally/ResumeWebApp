@@ -24,6 +24,19 @@ exports.getById = function(skill_id, callback) {
     });
 };
 
+exports.getByIdX = function(skill_id, callback) {
+    var query = 'SELECT r.*, s.skill_id, s.name, s.description from resume r ' +
+        'left join resume_skill rs on rs.resume_id = r.resume_id ' +
+        'left join skill s on s.skill_id = rs.skill_id ' +
+        'where r.resume_id = ?';
+
+    var queryData = [skill_id];
+
+    connection.query(query, queryData, function(err, result) {
+        callback(err, result);
+    });
+};
+
 exports.insert = function(params, callback) {
     var query = 'INSERT INTO skill (name, description) VALUES (?, ?)';
 

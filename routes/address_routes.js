@@ -50,7 +50,7 @@ router.get('/add', function(req, res){
 });
 
 // insert an address record
-router.get('insert', function(req, res){
+router.get('/insert', function(req, res){
     //simple validation
     if(req.query.street == null) {
         res.send('Street must be provided.');

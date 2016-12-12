@@ -34,6 +34,19 @@ exports.getById = function(company_id, callback) {
     });
 };
 
+exports.getByIdX = function(company_id, callback) {
+    var query = 'SELECT r.*, s.company_name, s.company_id from resume r ' +
+        'left join resume_company rs on rs.resume_id = r.resume_id ' +
+        'left join company s on s.company_id = rs.company_id ' +
+        'where r.resume_id = ?';
+
+    var queryData = [company_id];
+
+    connection.query(query, queryData, function(err, result) {
+        callback(err, result);
+    });
+};
+
 exports.insert = function(params, callback) {
 
     // FIRST INSERT THE COMPANY
@@ -119,12 +132,12 @@ exports.update = function(params, callback) {
                 //insert company_address ids
                 companyAddressInsert(params.company_id, params.address_id, function(err, result){
                     callback(err, result);
-                });}
+                });
+            }
             else {
                 callback(err, result);
             }
         });
-
     });
 };
 

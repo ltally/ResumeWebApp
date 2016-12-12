@@ -44,7 +44,7 @@ router.get('/add', function(req, res){
             res.send(err);
         }
         else {
-            res.render('skill/skillAdd');
+            res.render('skill/skillAdd', {'skill': result});
         }
     });
 });
@@ -52,11 +52,11 @@ router.get('/add', function(req, res){
 // insert a skill record
 router.get('insert', function(req, res){
     //simple validation
-    if(req.query.name == null) {
+    if(req.query.skill_name == null) {
         res.send('Skill name must be provided.');
     }
-    else if(req.query.skill_id == null){
-        res.send('A skill must be selected');
+    else if(req.query.skill_description == null){
+        res.send('A skill description must be selected');
     }
     else {
         // passing all the query parameters (req.query) to the insert function instead of each individually

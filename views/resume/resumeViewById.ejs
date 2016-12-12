@@ -1,12 +1,41 @@
 <html>
 <head>
-    <title>Resumes - <%= result[0].resume_name %></title>
+    <title>Resumes - <%= resume[0].resume_name %></title>
 </head>
 <body>
-<h1>Resumes</h1>
+<h1>Resumes - <%= resume[0].resume_id %>: <%= resume[0].resume_name %> </h1>
 <ul>
-    <li>User Account ID: <%= result[0].user_account_id %></li>
-    <li>Resume Name: <%= result[0].resume_name %></li>
+    Resume ID: <%= resume[0].resume_id %>
+    <br/>
+    <br/>
+    User Account ID: <%= resume[0].user_account_id %>
+    <br/>
+    <br/>
+    Companies:
+    <ul>
+        <% for(var i=0; resume_company.length > i; i++ ) { %>
+        <li><%= resume_company[i].company_name %></li>
+        <% } %>
+    </ul>
+    <br/>
+    Skill:
+    <ul>
+        <% for(var i=0; resume_skill.length > i; i++ ) { %>
+        <li> <%= resume_skill[i].name %> </li>
+        <ul>
+            <li> <%= resume_skill[i].description %></li>
+        </ul>
+        <% } %>
+    </ul>
+    <br/>
+
+    School(s):
+    <ul>
+        <% for(var i=0; resume_school.length > i; i++ ) { %>
+        <li> <%= resume_school[i].school_name %> </li>
+        <% } %>
+    </ul>
+    <br/>
 </ul>
 </body>
 
