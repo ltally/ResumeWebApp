@@ -60,7 +60,7 @@ exports.insert = function(params, callback) {
         var company_id = result.insertId;
 
         // NOTE THAT THERE IS ONLY ONE QUESTION MARK IN VALUES ?
-        var query = 'INSERT INTO company_address (company_id, address_id) VALUES (?)';
+        var query = 'INSERT INTO company_address (company_id, address_id) VALUES ?';
 
         // TO BULK INSERT RECORDS WE CREATE A MULTIDIMENSIONAL ARRAY OF THE VALUES
         var companyAddressData = [];

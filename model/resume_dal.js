@@ -62,11 +62,11 @@ module.exports.resumeSchoolViewById = resumeSchoolViewById;
 //INSERTS!!!!!!!!!!!!!!!!!!!!!
 
 exports.insert = function(params, callback) {
-    var query = 'INSERT INTO resume (account_id, resume_name) VALUES (?,?)';
+    var query = 'INSERT INTO resume (user_account_id, resume_name) VALUES (?,?)';
 
     // the question marks in the sql query above will be replaced by the values of the
     // the data in queryData
-    var resumeData = [params.account_id, params.resume_name];
+    var resumeData = [params.user_account_id, params.resume_name];
 
     connection.query(query, resumeData, function(err, result) {
 

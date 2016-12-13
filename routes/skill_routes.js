@@ -52,10 +52,10 @@ router.get('/add', function(req, res){
 // insert a skill record
 router.get('insert', function(req, res){
     //simple validation
-    if(req.query.skill_name == null) {
+    if(req.query.name == null) {
         res.send('Skill name must be provided.');
     }
-    else if(req.query.skill_description == null){
+    else if(req.query.description == null){
         res.send('A skill description must be selected');
     }
     else {
